@@ -1,0 +1,33 @@
+[Unit]
+Description=LogGuard SSH authentication failure monitor
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=logguard
+Group=logguard
+SupplementaryGroups=adm
+WorkingDirectory=/opt/logguard
+EnvironmentFile=/etc/logguard/logguard.env
+Environment=LOGGUARD_STATE_FILE=/var/lib/logguard/state.json
+ExecStart=/usr/bin/python3 /opt/logguard/logguard.py
+Restart=on-failure
+RestartSec=5s
+
+StateDirectory=logguard
+StateDirectoryMode=0700
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+[Install]
+WantedBy=multi-user.target
