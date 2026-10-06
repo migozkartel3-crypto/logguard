@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.py[cod]
+.env
+*.env
+logguard_state.json
+*.log
